@@ -1,0 +1,98 @@
+""" draw_shapes_on_image.py
+
+    example:
+    
+    python3.5 draw_shapes_on_image.py -i vehicular_traffic.jpg -s rectangle -lp1 610 530 -lp2 780 700
+    
+    python3.5 draw_shapes_on_image.py -i vehicular_traffic.jpg --shape line --line_p1 100 100 --line_p2 900 100
+
+
+    This script draws different geometric shapes on an image.
+    
+    This includes: 
+        - lines
+        - rectangles
+        - circles
+        - ellipses
+        - polygons
+        - text
+
+    author: include your full name here
+    date created: include that info here
+    universidad de monterrey.
+"""
+
+# import required libraries
+import numpy as np
+import cv2 
+import argparse
+
+
+# ------------------------------------- #
+# -------- UTILITY FUNCTIONS ---------- #
+# ------------------------------------- #
+
+# define function to draw a line
+def draw_a_line(img, p1, p2, colour=(255,0,0), thickness=2, linetype=cv2.LINE_8):
+
+    # draw a line on image
+    cv2.line(img, p1, p2, colour, thickness, linetype)
+
+    # return img 
+    return img
+
+
+# define function to draw a rectangle
+def draw_a_rectangle(img, p1, p2, colour=(255,0,0), thickness=2, linetype=cv2.LINE_8):
+
+    # draw a line on image
+    cv2.rectangle(img, p1, p2, colour, thickness, linetype)
+
+    # return img 
+    return img
+
+#define function to draw an ellipse
+def draw_an_ellipse(img, p1, p2,angle = 0,start_ang=0,end_ang=360,color=(0,0,0),thickness=2):
+	cv2.ellipse(img,p1,p2,angle,start_ang,end_ang,color,thickness)
+
+	return img
+
+#define function to draw a circle
+def draw_a_circle(img, p1,radius,colour=(255,0,0),thickness=2):
+	#draw a circle un image
+	cv2.circle(img, p1,radius,colour,thickness)
+
+
+	#return image with circle
+	return img
+
+
+#define polygon function
+def draw_a_polygon(img, pts):
+	cv2.polylines(img,[pts],True,(0,255,255),2)
+
+	return img
+
+#define textfunction
+def display_text(img, ttext, p1, ttext_type=cv2.FONT_HERSHEY_SIMPLEX):
+	cv2.putText(img, ttext,p1, ttext_type,1.5,(0,0,0) , 2, cv2.LINE_8)
+	
+	return img
+# ------------------------------------- #
+# ------------- MAIN CODE ------------- #
+# ------------------------------------- #
+
+# parse command line arguments
+parser = argparse.ArgumentParser('Draw geometric shapes on an image')
+parser.add_argument('-i', '--image', 
+                    help='name of input image', type=str, required=True)
+parser.add_argument('-s', '--shape', 
+                    help='geometric shape to be drawn on the input image', type=str, required=True)
+parser.add_argument('-lp1', '--line_p1', nargs='*', 
+                    help='x,y coordinate of point 1', required=False)
+parser.add_argument('-lp2', '--line_p2', nargs='*', 
+                    help='x,y coordinate of point 2', required=False)
+parser.add_argument('-rad', '--radius', type=int, nargs='+',
+                    help='circle radius',required=False)
+parser.add_argument('-cp', '--centerpoint', type=int, nargs='+',
+                    help='centerpoint of the ellipse or circle',required=False)
