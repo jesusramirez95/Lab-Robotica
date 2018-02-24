@@ -24,7 +24,7 @@
 
 # import required libraries
 import numpy as np
-import cv2 
+import <cv2> 
 import argparse
 
 
@@ -206,8 +206,8 @@ if geometric_shape == 'text':
 	lec = args['lectura']
 	if(p1 is None) or  (lec is None):
 		# ask user enter line coordinates
-                                print('ERROR one is missing')
-                                exit()
+		print('ERROR one is missing')
+		exit()
 	else:
 		for i in lec:
 			xlec+=(i+" ")
