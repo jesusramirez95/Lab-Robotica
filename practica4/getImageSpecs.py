@@ -63,7 +63,7 @@ def visualise_image(img, fig_number, fig_title, iscolour):
 	if iscolour:
 		plt.imshow(img)
 	else:
-		plt.imshow(img_greyscale, cmap='gray')
+		plt.imshow(img, cmap='gray')
 	plt.title(fig_title)
 	plt.xlabel('x-resolution')
 	plt.ylabel('y-resolution')
