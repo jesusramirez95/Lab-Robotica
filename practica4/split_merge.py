@@ -42,7 +42,7 @@ plt.title('GREEN channel')
 plt.figure(4)
 plt.imshow(b_channel,cmap='gray')
 plt.title('BLUE channel')
-
+#plt.show(block=False)
 # merge channels 
 img_original = cv2.merge((r_channel, g_channel, b_channel)) 
 
@@ -52,6 +52,7 @@ plt.title('Merged channels')
 
 # set blue channel to zero
 b_channel[:,:] = 0
+#b_channel=img_colour[:,:,0]=0
 
 # merge channels after setting blue channel to zero
 img_bzero = cv2.merge((r_channel, g_channel, b_channel)) 
