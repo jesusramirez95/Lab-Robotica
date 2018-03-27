@@ -40,7 +40,7 @@ coords = [np.random.randint(0, i - 1, int(num_pepper)) for i in img.shape]
 out[coords] = 0
 
 # apply cv2.medianBlur() for noise removal
-ksize = 3									# <--- change this value
+ksize = 7								# <--- change this value
 img_median = cv2.medianBlur(out, ksize)
 
 # plot input and blurred images
@@ -58,7 +58,7 @@ plt.yticks([])
 
 plt.figure(3)
 plt.imshow(img_median)
-plt.title('Noise')
+plt.title('Noise Filtered')
 plt.xticks([]) 
 plt.yticks([])
 

@@ -23,14 +23,16 @@ if img is None:
 	exit()
 
 # define a kernel
+#kernel = np.ones((1,1),np.float32)
 #kernel = np.ones((5,5), np.float32)/25
-#kernel = np.ones((13,13), np.float32)/169
+#kernel	 = np.ones((13,13), np.float32)/169
 #kernel = np.ones((21,21), np.float32)/441
-kernel = np.ones((31,31), np.float32)/961
-dst_correlation = cv2.filter2D(img, -1, kernel)
+#kernel = np.ones((31,31), np.float32)/961
+kernelx = np.array([[1,2,1],[2,4,2],[1,2,1]], np.float32)/16
+dst_correlation = cv2.filter2D(img, -1, kernelx)
 
 # rotate kernel
-kernel_rotated = cv2.flip(kernel, -1)
+kernel_rotated = cv2.flip(kernelx, -1)
 dst_convolution = cv2.filter2D(img, -1, kernel_rotated)
 
 # plot input and convolved images
@@ -42,13 +44,13 @@ plt.yticks([])
 
 plt.figure(2)
 plt.imshow(dst_correlation)
-plt.title('Output image using a 5x5 averaging filter (correlation)')
+plt.title('Output image using a 3x3 averaging filter (correlation)')
 plt.xticks([]) 
 plt.yticks([])
 
 plt.figure(3)
 plt.imshow(dst_convolution)
-plt.title('Output image using a 5x5 averaging filter (convolution)')
+plt.title('Output image using a 3x3 averaging filter (convolution)')
 plt.xticks([]) 
 plt.yticks([])
 
