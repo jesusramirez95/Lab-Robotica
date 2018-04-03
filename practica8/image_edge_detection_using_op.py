@@ -109,7 +109,19 @@ def compute_direction(img_derivative_x, img_derivative_y, threshold=(0, np.pi/2)
     binary_direction[(gradient_direction >= threshold[0]) & (gradient_direction <= threshold[1])] = 1
 
     return binary_direction
-
+def visualise_image(img, fig_number, title, flag_colour_conversion, conversion_colour, cmap):
+	
+	plt.figure(fig_number)
+	if flag_colour_conversion:
+		img=cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+	if cmap == '':
+		cmap = 'gray'
+	plt.imshow(img,cmap)
+	plt.title(title)
+	plt.xticks([])
+	plt.yticks([])
+	#plt.show()	
+	return None
 
 # pipeline
 def run_pipeline(img_name):
@@ -121,6 +133,8 @@ def run_pipeline(img_name):
 	if img is None:
 		print('ERROR: image ', img_name, 'could not be read')
 		exit()
+
+
 
 	# compute sobel derivative along x axis
 	img_derivative_x, img_binary_x = compute_absolute_sobel_gradient(img, ax='x', ksize=3, threshold=(40,140))
@@ -139,6 +153,15 @@ def run_pipeline(img_name):
 	thresh_max = 2
 	img_direction_gradient = compute_direction(img_derivative_x, img_derivative_y, threshold=(np.radians(thresh_min), np.radians(thresh_max)))
 
+	visualise_image(img, 1, 'Colour input image', True, 'BGR2RGB', '')
+	visualise_image(img_derivative_x, 2, 'x derivative', False, '', 'gray')
+	visualise_image(img_binary_x, 3, 'binary x derivative', False, '', 'gray')
+	visualise_image(img_derivative_y, 4, 'y derivative', False, '', 'gray')
+	visualise_image(img_binary_y, 5, 'binary y derivative', False, '', 'gray')
+	visualise_image(img_combined_derivatives, 6, 'combined x and y derivative', False, '', 'gray')
+	visualise_image(img_magnitude_gradient,7,'gradient magnitude',False,'','gray')
+	plt.show()
+	"""
 	# plot input and output images
 	plt.figure(1)
 	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -189,7 +212,7 @@ def run_pipeline(img_name):
 	plt.xticks([])
 	plt.yticks([])
 
-	plt.show()
+	plt.show()"""
 
 
 
