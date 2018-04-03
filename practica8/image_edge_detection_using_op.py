@@ -173,65 +173,13 @@ def run_pipeline(img_name):
 	edge_detection(img,roberts1,roberts2,8,'Roberts Kernel',False,'','gray')
 	edge_detection(img,Gx,Gy,9,'Prewitt Kernel',False,'','gray')
 	plt.show()
-	"""
-	# plot input and output images
-	plt.figure(1)
-	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-	plt.imshow(img, cmap='gray')
-	plt.title('Colour input image')
-	plt.xticks([])
-	plt.yticks([])
-
-	plt.figure(2)
-	plt.imshow(img_derivative_x, cmap='gray')
-	plt.title('x derivative')
-	plt.xticks([])
-	plt.yticks([])
-
-	plt.figure(3)
-	plt.imshow(img_binary_x, cmap='gray')
-	plt.title('binary x derivative')
-	plt.xticks([])
-	plt.yticks([])
-
-	plt.figure(4)
-	plt.imshow(img_derivative_y, cmap='gray')
-	plt.title('y derivative')
-	plt.xticks([])
-	plt.yticks([])
-
-	plt.figure(5)
-	plt.imshow(img_binary_y, cmap='gray')
-	plt.title('binary y derivative')
-	plt.xticks([])
-	plt.yticks([])
-
-	plt.figure(6)
-	plt.imshow(img_combined_derivatives, cmap='gray')
-	plt.title('combined x-and-y derivatives')
-	plt.xticks([])
-	plt.yticks([])
-
-	plt.figure(7)
-	plt.imshow(img_magnitude_gradient, cmap='gray')
-	plt.title('gradient magnitude')
-	plt.xticks([])
-	plt.yticks([])
-
-	plt.figure(8)
-	plt.imshow(img_direction_gradient, cmap='gray')
-	plt.title('gradient direction')
-	plt.xticks([])
-	plt.yticks([])
-
-	plt.show()"""
 
 
 
 # uncomment the corresponding line to try a particular image
 #img_name = 'opera_house_vivid_sydney.jpg'
-#img_name = 'sydney_harbour.jpg'
-img_name = 'vehicular_traffic.jpg'
+img_name = 'sydney_harbour.jpg'
+#img_name = 'vehicular_traffic.jpg'
 
 # run pipeline
 run_pipeline(img_name)
