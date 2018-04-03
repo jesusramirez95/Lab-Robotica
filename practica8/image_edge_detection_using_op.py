@@ -122,7 +122,11 @@ def visualise_image(img, fig_number, title, flag_colour_conversion, conversion_c
 	plt.yticks([])
 	#plt.show()	
 	return None
-
+def edge_detection(image,kernel1,kernel2,fig_number, title, flag_colour_conversion, conversion_colour, cmap):
+	image = cv2.filter2D(image,-1,kernel1)
+	image = cv2.filter2D(image,-1,kernel2)
+	visualise_image(image,fig_number, title, flag_colour_conversion, conversion_colour, cmap)
+	return None
 # pipeline
 def run_pipeline(img_name):
 
@@ -152,7 +156,13 @@ def run_pipeline(img_name):
 	thresh_min = 0
 	thresh_max = 2
 	img_direction_gradient = compute_direction(img_derivative_x, img_derivative_y, threshold=(np.radians(thresh_min), np.radians(thresh_max)))
-
+	#Kernel Roberts
+	roberts1 = np.array([[0,1],[-1,0]])
+	roberts2 = np.array([[1,0],[0,-1]])
+	#Kernel	prewwit
+	Gx = np.array([[-1,0,1],[-1,0,1],[-1,0,1]])
+	Gy = np.array([[1,1,1],[0,0,0],[-1,-1,-1	]])
+	
 	visualise_image(img, 1, 'Colour input image', True, 'BGR2RGB', '')
 	visualise_image(img_derivative_x, 2, 'x derivative', False, '', 'gray')
 	visualise_image(img_binary_x, 3, 'binary x derivative', False, '', 'gray')
@@ -160,6 +170,8 @@ def run_pipeline(img_name):
 	visualise_image(img_binary_y, 5, 'binary y derivative', False, '', 'gray')
 	visualise_image(img_combined_derivatives, 6, 'combined x and y derivative', False, '', 'gray')
 	visualise_image(img_magnitude_gradient,7,'gradient magnitude',False,'','gray')
+	edge_detection(img,roberts1,roberts2,8,'Roberts Kernel',False,'','gray')
+	edge_detection(img,Gx,Gy,9,'Prewitt Kernel',False,'','gray')
 	plt.show()
 	"""
 	# plot input and output images
