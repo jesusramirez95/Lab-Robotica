@@ -123,9 +123,12 @@ def visualise_image(img, fig_number, title, flag_colour_conversion, conversion_c
 	#plt.show()	
 	return None
 def edge_detection(image,kernel1,kernel2,fig_number, title, flag_colour_conversion, conversion_colour, cmap):
-	image = cv2.filter2D(image,-1,kernel1)
-	image = cv2.filter2D(image,-1,kernel2)
-	visualise_image(image,fig_number, title, flag_colour_conversion, conversion_colour, cmap)
+	x_ima = cv2.filter2D(image,-1,kernel1)
+	y_ima = cv2.filter2D(image,-1,kernel2)
+	n_img = x_ima+y_ima
+	visualise_image(x_ima,fig_number, title+' x', flag_colour_conversion, conversion_colour, cmap)
+	visualise_image(y_ima,fig_number+1, title+' y', flag_colour_conversion, conversion_colour, cmap)
+	visualise_image(n_img,fig_number+2, title+' combinado', flag_colour_conversion, conversion_colour, cmap)
 	return None
 # pipeline
 def run_pipeline(img_name):
@@ -161,8 +164,12 @@ def run_pipeline(img_name):
 	roberts2 = np.array([[1,0],[0,-1]])
 	#Kernel	prewwit
 	Gx = np.array([[-1,0,1],[-1,0,1],[-1,0,1]])
-	Gy = np.array([[1,1,1],[0,0,0],[-1,-1,-1	]])
+	Gy = np.array([[1,1,1],[0,0,0],[-1,-1,-1]])
+	#kernel Scharr
+	scharrx = np.array([[3,0,-3],[10,0,-10],[3,0,-3]])
+	scharry = np.array([[-3,-10,-3],[0,0,0],[3,10,3]])
 	
+	"""
 	visualise_image(img, 1, 'Colour input image', True, 'BGR2RGB', '')
 	visualise_image(img_derivative_x, 2, 'x derivative', False, '', 'gray')
 	visualise_image(img_binary_x, 3, 'binary x derivative', False, '', 'gray')
@@ -170,8 +177,10 @@ def run_pipeline(img_name):
 	visualise_image(img_binary_y, 5, 'binary y derivative', False, '', 'gray')
 	visualise_image(img_combined_derivatives, 6, 'combined x and y derivative', False, '', 'gray')
 	visualise_image(img_magnitude_gradient,7,'gradient magnitude',False,'','gray')
+	"""
 	edge_detection(img,roberts1,roberts2,8,'Roberts Kernel',False,'','gray')
-	edge_detection(img,Gx,Gy,9,'Prewitt Kernel',False,'','gray')
+	edge_detection(img,Gx,Gy,11,'Prewitt Kernel',False,'','gray')
+	edge_detection(img,scharrx,scharry,14,'Scharr Kernel',False,'','gray')
 	plt.show()
 
 
