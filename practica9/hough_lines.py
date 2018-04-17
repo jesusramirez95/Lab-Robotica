@@ -1,7 +1,7 @@
 """
 	line_detection_using_hough_transform.py
 
-	author: andres.hernandezg@udem.edu
+	author: Kassandra Ibarra, Jesus Ramirez y Alberto Herrera
 	universidad de monterrey
 """
 
