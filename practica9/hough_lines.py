@@ -12,7 +12,6 @@ import matplotlib.image as mpimg
 import cv2
 import math
 # select a region of interest
-
 def draw_lines(img,lines):
     # In case of error, don't draw the line
 	draw_right = True
@@ -20,7 +19,7 @@ def draw_lines(img,lines):
     
     # Find slopes of all lines
     # But only care about lines where abs(slope) > slope_threshold
-	slope_threshold = 0.5
+	slope_threshold = 0.1
 	slopes = []
 	new_lines = []
 	for line in lines:
@@ -70,7 +69,7 @@ def draw_lines(img,lines):
 	else:
 		right_m, right_b = 1, 1
 		draw_right = False
-        
+
     # Left lane lines
 	left_lines_x = []
 	left_lines_y = []
@@ -86,9 +85,13 @@ def draw_lines(img,lines):
         
 	if len(left_lines_x) > 0:
 		left_m, left_b = np.polyfit(left_lines_x, left_lines_y, 1)  # y = m*x + b
+		global mAnt
+		global bAnt
+		mAnt,bAnt  = left_m,left_b
+		
 	else:
-		left_m, left_b = 1, 1
-		draw_left = False
+		left_m, left_b = mAnt,bAnt
+		draw_left = True
     
     # Find 2 end points for right and left lines, used for drawing the line
     # y = m*x + b --> x = (y - b)/m
@@ -206,8 +209,8 @@ def run_pipeline(img_colour):
 	# comment the following lines when extracting  lines around the whole image
     bottom_left = (410, 850)
     top_left = (820, 600)
-    top_right = (1200, 600)
-    bottom_right = (1650, 850)
+    top_right = (1070, 600)
+    bottom_right = (1530, 850)
 
     # create a vertices array that will be used for the roi
     vertices = np.array([[bottom_left,top_left, top_right, bottom_right]], dtype=np.int32)
@@ -267,5 +270,7 @@ def plt_vis():
 #run_pipeline(img_name)
 global lec 
 lec = False
+global mAnt
+global bAnt
 leer_vid()
 
